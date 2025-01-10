@@ -7,6 +7,7 @@ import { UserModule } from './modules/user/user.module'
 import { AuthModule } from './modules/auth/auth.module'
 import { APP_INTERCEPTOR } from '@nestjs/core'
 import { RemovePasswordInterceptor } from './interceptors/exclude-password.interceptot'
+import { CampaignModule } from './modules/campain/campaign.module'
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { RemovePasswordInterceptor } from './interceptors/exclude-password.inter
     }),
     MongooseModule.forRootAsync(mongoConfigAsync),
     UserModule,
+    CampaignModule,
     AuthModule,
   ],
   controllers: [],
