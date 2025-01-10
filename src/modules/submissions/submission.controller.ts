@@ -34,6 +34,18 @@ export class SubmissionController {
     return this.submissionService.create(createSubmissionDto)
   }
 
+  @ApiOperation({ summary: 'Get all Submissions ' })
+  @ApiResponse({ status: 200, description: 'ok' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
+  @UseGuards(AuthGuard, RolesGuard)
+  @ApiBearerAuth()
+  @Roles(UserRole.INFLUENCER, UserRole.BRAND)
+  @Get()
+  async getSubmissions(): Promise<Submission[]> {
+    return this.submissionService.findSubmissionsForUser()
+  }
+
   @ApiOperation({ summary: 'Approve a Submission ' })
   @ApiResponse({ status: 200, description: 'ok' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
@@ -69,7 +81,7 @@ export class SubmissionController {
 
   @Put(':id/performance')
   @UseGuards(AuthGuard)
-  @Roles(UserRole.BRAND) // Only Brands can update performance metrics
+  @Roles(UserRole.BRAND)
   async updatePerformance(
     @Param('id') submissionId: string,
     @Body() updatePerformanceDto: UpdatePerformanceDto,
