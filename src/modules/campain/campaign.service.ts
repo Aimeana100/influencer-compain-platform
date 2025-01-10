@@ -23,7 +23,6 @@ export class CampaignService {
   }
 
   async findAll(): Promise<Campaign[]> {
-    const user = this.request.user
     return this.campaignModel
       .find()
       .populate('createdBy', 'names email') // Populate creator's details

@@ -5,7 +5,6 @@ FROM node:20-alpine
 
 WORKDIR /app/backend
 
-
 # Step 3: Copy package.json and package-lock.json
 COPY package*.json ./
 
@@ -14,8 +13,6 @@ RUN npm install -g @nestjs/cli
 
 # Step 4: Install dependencies
 RUN npm install
-
-
 
 # Step 6: Copy the rest of the application code
 COPY . .

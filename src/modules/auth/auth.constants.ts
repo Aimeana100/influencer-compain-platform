@@ -1,5 +1,7 @@
+import { Types } from 'mongoose'
+
 export interface AuthPayload {
-  id: number
+  id: Types.ObjectId
   email: string
   role: string
 }
