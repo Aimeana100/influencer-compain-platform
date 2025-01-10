@@ -8,6 +8,7 @@ import { AuthModule } from './modules/auth/auth.module'
 import { APP_INTERCEPTOR } from '@nestjs/core'
 import { RemovePasswordInterceptor } from './interceptors/exclude-password.interceptot'
 import { CampaignModule } from './modules/campain/campaign.module'
+import { SubmissionModule } from './modules/submissions/submission.module'
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { CampaignModule } from './modules/campain/campaign.module'
     UserModule,
     CampaignModule,
     AuthModule,
+    SubmissionModule,
   ],
   controllers: [],
   providers: [
