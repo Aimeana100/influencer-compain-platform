@@ -12,14 +12,17 @@ COPY package*.json ./
 # Step 4: Install dependencies
 RUN npm install --production
 
-# Step 5: Copy the rest of the application code
+# Step 5: Install NestJS CLI globally
+RUN npm install -g @nestjs/cli
+
+# Step 6: Copy the rest of the application code
 COPY . .
 
-# Step 6: Build the NestJS app
+# Step 7: Build the NestJS app
 RUN npm run build
 
-# Step 7: Expose the app port
+# Step 8: Expose the app port
 EXPOSE 4000
 
-# Step 8: Start the application
+# Step 9: Start the application
 CMD ["npm", "run", "start:prod"]
