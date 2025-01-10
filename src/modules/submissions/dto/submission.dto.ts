@@ -1,15 +1,6 @@
-import {
-  IsNotEmpty,
-  IsString,
-  IsNumber,
-  IsOptional,
-  IsUrl,
-} from 'class-validator'
+import { IsNotEmpty, IsNumber, IsOptional, IsUrl } from 'class-validator'
 
 export class CreateSubmissionDto {
-  @IsNotEmpty()
-  influencer: string // Influencer ID
-
   @IsNotEmpty()
   campaign: string // Campaign ID
 
