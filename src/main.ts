@@ -7,7 +7,6 @@ import helmet from 'helmet'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
-
   const document = SwaggerModule.createDocument(app, config, {
     operationIdFactory: (controllerKey: string, methodKey: string) => methodKey,
   })
