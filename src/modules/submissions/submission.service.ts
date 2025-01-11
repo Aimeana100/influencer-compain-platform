@@ -12,17 +12,30 @@ import { UpdateSubmissionApprovalDto } from './dto/update-submission-approval.dt
 import { REQUEST } from '@nestjs/core'
 import { CustomRequest } from '../auth/auth.constants'
 import { UserRole } from '../user/user.schema'
+import { Campaign } from '../campain/campaign.schema'
 
 @Injectable()
 export class SubmissionService {
   constructor(
     @InjectModel('Submission')
     private readonly submissionModel: Model<Submission>,
+    @InjectModel('Campaign') private readonly campaignModel: Model<Campaign>,
     @Inject(REQUEST) private readonly request: CustomRequest,
   ) {}
 
   async create(createSubmissionDto: CreateSubmissionDto): Promise<Submission> {
     const { campaign, contentUrl, performanceMetrics } = createSubmissionDto
+
+    const foundCampaign = await this.campaignModel.findById(campaign)
+
+    if (!foundCampaign) {
+      throw new NotFoundException('Campaign not found')
+    }
+
+    if (!foundCampaign.influencers.includes(this.request.user.id)) {
+      foundCampaign.influencers.push(this.request.user.id)
+      await foundCampaign.save()
+    }
 
     const newSubmission = new this.submissionModel({
       influencer: this.request.user.id,
@@ -31,7 +44,12 @@ export class SubmissionService {
       performanceMetrics,
     })
 
-    return newSubmission.save()
+    const savedSubmission = await newSubmission.save()
+    //
+    // foundCampaign.submissions.push(savedSubmission._id)
+    // await foundCampaign.save()
+
+    return savedSubmission
   }
   async findSubmissionsForUser(): Promise<Submission[]> {
     const { id: userId, role } = this.request.user
@@ -85,6 +103,14 @@ export class SubmissionService {
     }
 
     return submission
+  }
+
+  async findSubmissionsForCampaign(campaignId: string): Promise<Submission[]> {
+    return this.submissionModel
+      .find({ campaign: campaignId })
+      .populate('campaign')
+      .populate('influencer')
+      .exec()
   }
 
   // Approve or Reject a submission

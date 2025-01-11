@@ -4,11 +4,7 @@ import { Request, Response, NextFunction } from 'express'
 
 @Injectable()
 export class CorsMiddleware implements NestMiddleware {
-  private allowedOrigins = [
-    'https://hafiyacu.rw',
-    'https://www.hafiyacu.rw',
-    'http://localhost',
-  ]
+  private allowedOrigins = ['http://localhost:3000']
 
   use(req: Request, res: Response, next: NextFunction) {
     const origin = req.headers.origin

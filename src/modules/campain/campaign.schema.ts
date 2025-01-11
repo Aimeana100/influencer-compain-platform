@@ -35,10 +35,10 @@ export class Campaign {
 
   // Referencing the influencer model (assuming they're users in your system)
   @Prop({ type: [Types.ObjectId], ref: 'User', default: [] })
-  influencers: Types.ObjectId[] // Array of Influencer ObjectId references
+  influencers: Types.ObjectId[]
 
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
-  createdBy: Types.ObjectId // References the User schema (brand/SME)
+  createdBy: Types.ObjectId
 }
 
 export const CampaignSchema = SchemaFactory.createForClass(Campaign)

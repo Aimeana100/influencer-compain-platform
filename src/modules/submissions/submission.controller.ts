@@ -53,9 +53,9 @@ export class SubmissionController {
   @UseGuards(AuthGuard, RolesGuard)
   @ApiBearerAuth()
   @Roles(UserRole.BRAND)
-  @Patch(':id/approve')
+  @Patch(':submissionId/approve')
   async approveSubmission(
-    @Param('id') id: string,
+    @Param('submissionId') id: string,
     @Body() updateApprovalDto: UpdateSubmissionApprovalDto,
   ): Promise<Submission> {
     return this.submissionService.updateApprovalStatus(id, {
@@ -69,9 +69,9 @@ export class SubmissionController {
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(UserRole.BRAND)
   @ApiBearerAuth()
-  @Patch(':id/reject')
+  @Patch(':submissionId/reject')
   async rejectSubmission(
-    @Param('id') id: string,
+    @Param('submissionId') id: string,
     @Body() updateApprovalDto: UpdateSubmissionApprovalDto,
   ): Promise<Submission> {
     return this.submissionService.updateApprovalStatus(id, {
@@ -79,11 +79,12 @@ export class SubmissionController {
     })
   }
 
-  @Put(':id/performance')
+  @Put(':submissionId/performance')
+  @ApiBearerAuth()
   @UseGuards(AuthGuard)
   @Roles(UserRole.BRAND)
   async updatePerformance(
-    @Param('id') submissionId: string,
+    @Param('submissionId') submissionId: string,
     @Body() updatePerformanceDto: UpdatePerformanceDto,
   ) {
     return this.submissionService.updatePerformance(
@@ -92,9 +93,21 @@ export class SubmissionController {
     )
   }
 
-  @Get(':id')
+  @Get(':submissionId')
   @UseGuards(AuthGuard)
-  async getSubmission(@Param('id') submissionId: string) {
+  async getSubmission(@Param('submissionId') submissionId: string) {
     return this.submissionService.findOne(submissionId)
+  }
+
+  @ApiOperation({ summary: " the brand's Submissions" })
+  @ApiResponse({ status: 200, description: 'ok' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
+  @UseGuards(AuthGuard)
+  @Roles(UserRole.BRAND, UserRole.INFLUENCER)
+  @ApiBearerAuth()
+  @Get('/campaign/:campaignId')
+  async findSubmissionsForCampaign(@Param('campaignId') campaignId: string) {
+    return this.submissionService.findSubmissionsForCampaign(campaignId)
   }
 }
