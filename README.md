@@ -88,9 +88,59 @@ Ensure you have the following installed:
 - View API documentation at http://localhost:4000/docs
 
 
-
-
-
 ## Project Structure
+[Todo]
 
-   
+
+# Here’s a markdown version of the features and modules implemented in the Backend for the Influencer Campaign Manager application:
+
+# Backend Features and Modules
+
+## 1. **Campaign Management**
+- **Create Campaign**: Allows brands to create new campaigns with details like title, description, budget, end date, and status.
+- **Fetch Campaigns**: Retrieve a list of campaigns, including active and upcoming campaigns.
+- **Campaign Status Updates**: Change the status of campaigns (e.g., active, completed).
+
+## 2. **Submission Management**
+- **Create Submission**: Allows influencers to submit content for specific campaigns by providing a URL and optional performance metrics (views, clicks, conversions).
+- **Fetch Submissions**: Retrieve a list of submissions for a specific campaign or influencer.
+- **Update Submission**: Update the performance metrics (views, clicks, conversions) of a submission.
+- **Submission Status Updates**: Update submission status (e.g., pending, approved, rejected).
+
+## 3. **User Authentication and Authorization**
+- **JWT Authentication**: Implemented JWT-based authentication for secure login, session management, and access control.
+- **User Roles**: Different roles for users (brand, influencer) with specific permissions.
+- **Login**: Users can log in using their credentials and receive a JWT token for authenticated requests.
+- **Logout**: Users can log out, invalidating their session.
+- **User Registration**: Allows users (brands and influencers) to create new accounts (if implemented).
+
+## 4. **Performance Metrics for Submissions**
+- **Track Performance**: Track performance metrics for influencer submissions like views, clicks, and conversions.
+- **Update Metrics**: Brands can update the performance metrics based on campaign performance and submission review.
+
+## 5. **Database Models and Schema**
+- **Campaign Model**: Schema for storing campaign details (title, description, budget, end date, etc.).
+- **Submission Model**: Schema for storing submission details (content URL, performance metrics, campaign association).
+- **User Model**: Schema for storing user details (e.g., name, email, role, etc.).
+- **MongoDB Database**: Database for storing campaign, submission, and user data (depending on implementation, could be MongoDB or SQL).
+
+## 6. **CRUD Operations**
+- **Campaign CRUD**: Full CRUD functionality for campaigns, allowing brands to create, read, update, and delete campaigns.
+- **Submission CRUD**: Full CRUD functionality for submissions, allowing influencers to create, read, update, and delete submissions.
+
+## 7. **Deployment and CI/CD**
+- **Dockerized Backend**: Dockerize the backend application for consistent deployment across environments (e.g., local, production).
+- **CI/CD Pipeline**: Automated pipeline for testing, building, and deploying the backend to servers (e.g., EC2, AWS).
+
+## 8. **Security Features**
+- **Data Encryption**: Sensitive data, like passwords, are encrypted using hashing algorithms (e.g., bcrypt).
+- **Role-based Access Control (RBAC)**: Ensure users can only access resources based on their roles (brand, influencer).
+
+## 9. **Environment Configuration**
+- **Environment Variables**: Use environment variables for sensitive information like database URLs, JWT secret keys, and third-party API keys.
+- **Configuration Files**: Externalize configurations such as database settings, port numbers, and API settings to be easily changed for different environments (development, production).
+
+## 10. **API Documentation**
+- **OpenAPI (Swagger)**: Provide API documentation for the backend using OpenAPI standards (Swagger), making it easier for front-end developers and third-party integrations.
+- **Endpoint Documentation**: Clear documentation for each endpoint, including required parameters, request/response examples, and error codes.
+
