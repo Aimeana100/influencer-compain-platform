@@ -53,8 +53,7 @@ An Influencer Campaign Tracker system built using NestJS and MongoDB to manage i
 
 Ensure you have the following installed:
 - [Node.js](https://nodejs.org/) (v18+)
-- [Docker](https://www.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/)
+- [Docker](https://www.docker.com/) (Optional)
 
 ---
 
@@ -62,31 +61,52 @@ Ensure you have the following installed:
 
 1. **Clone the Repository**:
 
-   ```bash
+```bash
    git https://github.com/Aimeana100/influencer-compain-platform.git
    cd influencer-compain-platform
+   ```
+
+2. Setting Up MongoDB
+
+- **Option 1:** Using Docker
+Run a MongoDB container with Docker:
+```markdown
+  docker run -d --name mongodb -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin mongo:latest
+  ```
+Access MongoDB locally on ```mongodb://admin:admin@localhost:27017```
 
 
-2. **Set Up Environment Variables:**:
+   - **Option 2:** Installing MongoDB Locally
+    Install MongoDB from the [official MongoDB website](https://www.mongodb.com/try/download/community). 
+   - The same way you can create a free mongodb cluster from in cloud [Link](https://www.mongodb.com/cloud/atlas/register) (***More advised***)
 
-     Create a `.env` file in the `backend` directory and provide the following details:
+   Start the MongoDB service (If you downloaded mongodb):
+   ```bash
+   mongod
+   ```
+
+3. **Set Up Environment Variables:**:
+
+Create a `.env` file in the `backend` directory and provide the following details:
 
    ```bash
    PORT=4000
-   MONGO_URI=mongodb://localhost:27017/influencer-campaign-tracker
+   MONGO_URI={your_mongodb_uri}
    JWT_SECRET=your_secret_key
+   NODE_ENV=development
    ```
 
+4. **Install dependencies and run the Application:**
 
+```markdown
 
-3. **Run the Application with Docker:**
-
-   Build and start the application using Docker Compose:
-
-    ``` docker compose up --build```    
-- The backend will be accessible at http://localhost:4000
-- View API documentation at http://localhost:4000/docs
-
+# install
+yarn
+or
+npm install
+# stat dev mode
+yarn start:dev
+```
 
 ## Project Structure
 [Todo]
